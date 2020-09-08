@@ -3,7 +3,7 @@
 # Move to the root of the project
 original_pwd=$(pwd);
 cd $(dirname $0);
-cd ../../..;
+cd ../..;
 
 if ! test -h .git/hooks/pre-commit; then
     ./github/linters/setup-local-lint.sh
