@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Move to the root of the project
 original_pwd=$(pwd);
 cd $(dirname $0);
