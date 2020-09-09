@@ -7,10 +7,6 @@ original_pwd=$(pwd);
 cd $(dirname $0);
 cd ../../..;
 
-if test -h .git/hooks/pre-commit; then
-    .github/linters/setup/local-lint.sh
-fi;
-
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
 git add .github
