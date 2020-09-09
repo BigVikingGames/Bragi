@@ -9,6 +9,7 @@ cd ../../..;
 
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
+echo $(pwd);
 #git add .github
 
 # Setup the pre commit hook
