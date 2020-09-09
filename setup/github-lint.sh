@@ -17,7 +17,7 @@ git add .github
 
 # Setup the pre commit hook
 if ! test -h .git/modules/.github/linters/hooks/post-update; then
-    ln -s ../../../../../.github/hooks/local-post-update.sh .git/modules/.github/linters/hooks/post-update;
+    ln -s ../../../../../.github/linters/hooks/local-post-update.sh .git/modules/.github/linters/hooks/post-update;
     chmod 777 .git/modules/.github/linters/hooks/post-update;
 fi;
 
