@@ -74,7 +74,7 @@ fi;
 
 # Setup the pre commit hook
 if ! test -h .git/hooks/pre-commit; then
-    ln -s ../../.github/linters/hooks/pre-commit.sh .git/hooks/pre-commit;
+    ln -s ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
     chmod 777 .git/hooks/pre-commit;
 fi;
 
