@@ -30,13 +30,13 @@ lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml';
 lint php 'phpcs -standard=.github/linters/phpcs.xml';
 
 # json lint
-lint json 'npx jsonlint -q';
+lint json 'jsonlint -q';
 
 # css lint
 lint css 'npx stylelint --config .github/linters/.stylelintrc.json';
 
 # html lint
-lint html 'npx htmlhint --config .github/linters/.htmlhintrc';
+lint html 'htmlhint --config .github/linters/.htmlhintrc';
 
 # ansible lint
 lint yml 'yamllint -c .github/linters/.yaml-lint.yml'

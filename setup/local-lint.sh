@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Setting up local linting."
+
 # Move to the root of the project
 original_pwd=$(pwd);
 cd $(dirname $0);
@@ -12,6 +14,12 @@ function command_exists {
 function ensure_package_exists {
     if ! npm list --depth 1 "$1" > /dev/null 2>&1; then
         npm i --save-dev "$1";
+    fi;
+}
+
+function ensure_global_package_exists {
+    if ! command_exists $1; then
+        npm i -g "$1";
     fi;
 }
 
@@ -33,10 +41,12 @@ if ! command_exists phpcbf; then
     mv phpcbf.phar /usr/local/bin/phpcbf
 fi;
 
-# ESLINT
+# NPM
 if ! command_exists npm; then
     brew install npm;
 fi;
+
+# ESLINT
 ensure_package_exists eslint;
 ensure_package_exists eslint-plugin-import;
 ensure_package_exists eslint-plugin-jsx-a11y;
@@ -47,15 +57,15 @@ ensure_package_exists typescript;
 ensure_package_exists @typescript-eslint/parser;
 ensure_package_exists @typescript-eslint/eslint-plugin;
 
-# JSON Lint
-ensure_package_exists jsonlint;
-
 # Style Lint
 ensure_package_exists stylelint;
 ensure_package_exists stylelint-config-standard;
 
+# JSON Lint
+ensure_global_package_exists jsonlint;
+
 # HTML Hint
-ensure_package_exists htmlhint;
+ensure_global_package_exists htmlhint;
 
 # YAML Lint
 if ! command_exists yamllint; then

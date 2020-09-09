@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Setting up github linting.";
+
 # Move to the root of the project
 original_pwd=$(pwd);
 cd $(dirname $0);
@@ -11,6 +13,7 @@ fi;
 
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
+git add .github
 
 # Setup the pre commit hook
 if ! test -h .git/modules/.github/linters/hooks/post-update; then
