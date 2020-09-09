@@ -7,17 +7,17 @@ original_pwd=$(pwd);
 cd $(dirname $0);
 cd ../../..;
 
-function command_exists {
-    type "$1" &> /dev/null;
+command_exists () {
+    type "$1" > /dev/null 2> /dev/null; 
 }
 
-function ensure_package_exists {
-    if ! npm list --depth 1 "$1" > /dev/null 2>&1; then
+ensure_package_exists () {
+    if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
         npm i --save-dev "$1";
     fi;
 }
 
-function ensure_global_package_exists {
+ensure_global_package_exists () {
     if ! command_exists $1; then
         npm i -g "$1";
     fi;
@@ -25,7 +25,7 @@ function ensure_global_package_exists {
 
 # CHECKSTYLE
 if ! command_exists checkstyle; then
-    brew install checkstyle;
+    brew install checkstyle || apt-get -y install checkstyle;
 fi;
 
 # PHP CODE SNIFFER
@@ -43,7 +43,7 @@ fi;
 
 # NPM
 if ! command_exists npm; then
-    brew install npm;
+    brew install npm || apt-get -y install npm;
 fi;
 
 # ESLINT
@@ -69,14 +69,13 @@ ensure_global_package_exists htmlhint;
 
 # YAML Lint
 if ! command_exists yamllint; then
-    brew install yamllint;
+    brew install yamllint || apt-get -y install yamllint;
 fi;
 
 # Setup the pre commit hook
-if ! test -h .git/hooks/pre-commit; then
-    ln -s ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
-    chmod 777 .git/hooks/pre-commit;
-fi;
+rm .git/hooks/pre-commit;
+ln -s ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
+chmod 777 .git/hooks/pre-commit;
 
 # Restore working directory
 cd $original_pwd;
