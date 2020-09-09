@@ -6,6 +6,8 @@ echo "Updating github linting.";
 original_pwd=$(pwd);
 cd $(dirname $0);
 
+echo $(pwd);
+
 setup/github-lint.sh
 
 # Only update the local linter if the user has it turned on by running local-lint.sh at least once
