@@ -6,11 +6,11 @@ echo "Updating github linting.";
 original_pwd=$(pwd);
 cd $(dirname $0);
 
-github-lint.sh
+setup/github-lint.sh
 
 # Only update the local linter if the user has it turned on by running local-lint.sh at least once
 if test -h ../../../.git/hooks/pre-commit; then
-    local-lint.sh
+    setup/local-lint.sh
 fi;
 
 # Restore working directory
