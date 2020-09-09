@@ -1,3 +1,3 @@
 #!/bin/sh
 
-./github/linters/setup/github-lint.sh
+.github/linters/setup/github-lint.sh
