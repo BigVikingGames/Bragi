@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Setting up github linting.";
+echo "Updating github linting.";
 
 # Move to the root of the project
 original_pwd=$(pwd);

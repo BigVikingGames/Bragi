@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Setting up local linting."
+echo "Updating local linting."
 
 # Move to the root of the project
 original_pwd=$(pwd);
