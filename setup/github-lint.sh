@@ -9,7 +9,7 @@ cd ../../..;
 
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
-git add .github
+#git add .github
 
 # Setup the pre commit hook
 rm .git/modules/.github/linters/hooks/post-merge;
