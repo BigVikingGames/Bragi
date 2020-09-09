@@ -6,7 +6,7 @@ cd $(dirname $0);
 cd ../../..;
 
 if ! test -h .git/hooks/pre-commit; then
-    ./github/linters/setup-local-lint.sh
+    ./github/linters/setup/local-lint.sh
 fi;
 
 mkdir -p .github/workflows
