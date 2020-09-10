@@ -8,16 +8,16 @@ git stash save --keep-index "index" > /dev/null;
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom lint command
 linter_exit_code=0;
-function lint {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs $2;
+lint () {
+    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs -r $2;
     linter_exit_code=$(($linter_exit_code + $?));
 }
 
 # runs a custom linter fix function aginst a set of files
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom linter fix command
-function fix {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs $2 &> /dev/null;
+fix () {
+    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs -r $2 > /dev/null 2> /dev/null;
 }
 
 # java lint
@@ -56,7 +56,7 @@ git stash drop > /dev/null;
 # javascript + typescript fix
 fix '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml --fix';
 # php fix
-fix php 'phpcbf -standard=.github/linters/phpcs.xml';
+fix php 'phpcbf --standard=.github/linters/phpcs.xml';
 # json fix
 fix json 'npx jsonlint -i';
 # no automatic css fix
@@ -64,6 +64,6 @@ fix json 'npx jsonlint -i';
 # no automatic yml fix
 
 # any accumulated non zero exit codes means at least one linter failed
-if (($linter_exit_code > 0)); then
+if [ "$linter_exit_code" -gt "0" ]; then
     exit 1;
 fi

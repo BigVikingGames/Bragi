@@ -41,9 +41,15 @@ if ! command_exists phpcbf; then
     mv phpcbf.phar /usr/local/bin/phpcbf
 fi;
 
+if ! command_exists php; then
+    brew install php || apt-get -y install php;
+    apt-get -y install php-xml;
+    apt-get -y install php-xmlwriter;
+fi;
+
 # NPM
 if ! command_exists npm; then
-    brew install npm || apt-get -y install npm;
+    brew install npm || (apt-get -y install npm && npm install -g npm@latest);
 fi;
 
 # ESLINT
