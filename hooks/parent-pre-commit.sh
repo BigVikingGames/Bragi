@@ -27,7 +27,7 @@ lint java 'checkstyle -c .github/linters/sun_checks.xml';
 lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml';
 
 # php lint
-lint php 'phpcs -standard=.github/linters/phpcs.xml';
+lint php 'phpcs --standard=.github/linters/phpcs.xml';
 
 # json lint
 lint json 'jsonlint -q';
