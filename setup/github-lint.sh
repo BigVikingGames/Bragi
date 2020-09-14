@@ -7,8 +7,7 @@ original_pwd=$(pwd);
 cd $(dirname $0);
 cd ../../..;
 
-git submodule update .github/linters
-
+# Ensure the github action workflow file is up to date
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
 git add ./.github
