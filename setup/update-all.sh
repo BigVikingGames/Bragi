@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Move to the root of Bragi
+# Move to the setup folder of Bragi
 original_pwd=$(pwd);
 cd $(dirname $0);
 

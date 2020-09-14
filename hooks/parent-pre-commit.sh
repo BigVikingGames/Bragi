@@ -4,12 +4,19 @@
 git stash save --keep-index "working_tree" > /dev/null;
 git stash save --keep-index "index" > /dev/null;
 
+# OSX and GNU xargs behave different by default
+xargs_command="xargs";
+echo check | xargs --no-run-if-empty
+if [[ "$?" -eq "0" ]]; then
+    xargs_command="$xargs_command  --no-run-if-empty";
+fi;
+
 # runs a custom lint function aginst a set of files
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom lint command
 linter_exit_code=0;
 lint () {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs -r $2;
+    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | $xargs_command $2;
     linter_exit_code=$(($linter_exit_code + $?));
 }
 
@@ -17,7 +24,7 @@ lint () {
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom linter fix command
 fix () {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | xargs -r $2 > /dev/null 2> /dev/null;
+    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | $xargs_command $2 > /dev/null 2> /dev/null;
 }
 
 # java lint
