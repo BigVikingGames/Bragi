@@ -58,7 +58,7 @@ if [ -n "$working_tree_stash_num" ]; then
 fi;
 git reset > /dev/null;
 index_stash_num=$(git stash list | grep "index" | sed -re 's/stash@\{(.*)\}.*/\1/')
-if [ -n "$working_tree_stash_num" ]; then
+if [ -n "$index_stash_num" ]; then
     git reset stash@{$index_stash_num} > /dev/null; 
     git stash drop "index" > /dev/null;
 fi;
