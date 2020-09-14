@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # keep track of both the working tree and index
-git stash save --keep-index "working_tree" > /dev/null;
-git stash save --keep-index "index" > /dev/null;
+git stash push --keep-index "working_tree" --  > /dev/null;
+git stash push --keep-index "index" --  > /dev/null;
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
@@ -51,11 +51,18 @@ lint yml 'yamllint -c .github/linters/.yaml-lint.yml'
 # restore both the working tree and index
 git reset > /dev/null;
 git checkout .;
-git checkout stash@{1} .;
+working_tree_stash_num=$(git stash list | grep "working_tree" | sed -re 's/stash@\{(.*)\}.*/\1/')
+if [ -n "$working_tree_stash_num" ]; then
+    git checkout stash@{$working_tree_stash_num} .;
+    git stash drop "working_tree" > /dev/null;
+fi;
 git reset > /dev/null;
-git reset stash@{0} > /dev/null;
+index_stash_num=$(git stash list | grep "index" | sed -re 's/stash@\{(.*)\}.*/\1/')
+if [ -n "$working_tree_stash_num" ]; then
+    git reset stash@{$index_stash_num} > /dev/null; 
+    git stash drop "index" > /dev/null;
+fi;
 git reset --soft HEAD~1;
-git stash drop > /dev/null;
 git stash drop > /dev/null;
 
 # Automatically fix the files in our working tree
