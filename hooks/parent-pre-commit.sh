@@ -63,7 +63,6 @@ if [ -n "$working_tree_stash_num" ]; then
     git stash drop "index" > /dev/null;
 fi;
 git reset --soft HEAD~1;
-git stash drop > /dev/null;
 
 # Automatically fix the files in our working tree
 # no automatic java fix
