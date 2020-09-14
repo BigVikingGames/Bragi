@@ -1,3 +1,4 @@
 #!/bin/sh
 
-setup/update-all.sh
+echo "running $0";
+setup/update-all.sh;
