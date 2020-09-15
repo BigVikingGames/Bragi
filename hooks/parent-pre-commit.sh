@@ -1,8 +1,10 @@
 #!/bin/sh
 
 # keep track of both the working tree and index
-git stash save --keep-index "working_tree" > /dev/null;
-git stash save --keep-index "index" > /dev/null;
+diff_files=$(git diff --name-only --ignore-submodules);
+
+git stash push --keep-index -m "working_tree" > /dev/null;
+git stash push --keep-index -m "index" -- $diff_files > /dev/null;
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
