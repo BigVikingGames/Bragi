@@ -23,14 +23,10 @@ ensure_global_package_exists () {
     fi;
 }
 
-echo "a";
-
 # CHECKSTYLE
 if ! command_exists checkstyle; then
     brew install checkstyle || apt-get -y install checkstyle;
 fi;
-
-echo "b";
 
 # PHP CODE SNIFFER
 if ! command_exists phpcs; then
@@ -51,14 +47,10 @@ if ! command_exists php; then
     apt-get -y install php-xmlwriter;
 fi;
 
-echo "c";
-
 # NPM
 if ! command_exists npm; then
     brew install npm || (apt-get -y install npm && npm install -g npm@latest);
 fi;
-
-echo "d";
 
 # ESLINT
 ensure_package_exists eslint;
@@ -71,23 +63,15 @@ ensure_package_exists typescript;
 ensure_package_exists @typescript-eslint/parser;
 ensure_package_exists @typescript-eslint/eslint-plugin;
 
-echo "e";
-
 # Style Lint
 ensure_package_exists stylelint;
 ensure_package_exists stylelint-config-standard;
 
-echo "f";
-
 # JSON Lint
 ensure_global_package_exists jsonlint;
 
-echo "g";
-
 # HTML Hint
 ensure_global_package_exists htmlhint;
-
-echo "h";
 
 # YAML Lint
 if ! command_exists yamllint; then
@@ -98,8 +82,6 @@ fi;
 rm .git/hooks/pre-commit;
 ln -s ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
 chmod 777 .git/hooks/pre-commit;
-
-echo "i";
 
 # Restore working directory
 cd $original_pwd;

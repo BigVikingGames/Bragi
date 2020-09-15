@@ -6,7 +6,7 @@ git stash save --keep-index "index" > /dev/null;
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
-echo check | xargs --no-run-if-empty
+echo check | xargs --no-run-if-empty > /dev/null 2> /dev/null;
 if [[ "$?" -eq "0" ]]; then
     xargs_command="$xargs_command  --no-run-if-empty";
 fi;
@@ -53,14 +53,12 @@ git reset > /dev/null;
 git checkout .;
 working_tree_stash_num=$(git stash list | grep "working_tree" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
-    echo "found working tree stash $working_tree_stash_num";
     git checkout "stash@{$working_tree_stash_num}" .;
     git stash drop "stash@{$working_tree_stash_num}" > /dev/null;
 fi;
 git reset > /dev/null;
 index_stash_num=$(git stash list | grep "index" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
-    echo "found index stash $index_stash_num";
     git reset "stash@{$index_stash_num}" > /dev/null; 
     git stash drop "stash@{$index_stash_num}" > /dev/null;
 fi;
