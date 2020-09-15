@@ -63,7 +63,7 @@ echo "d";
 # ESLINT
 ensure_package_exists eslint;
 ensure_package_exists eslint-plugin-import;
-#ensure_package_exists eslint-plugin-jsx-a11y;
+ensure_package_exists eslint-plugin-jsx-a11y;
 #ensure_package_exists eslint-plugin-node;
 #ensure_package_exists eslint-plugin-react;
 #ensure_package_exists babel-eslint;

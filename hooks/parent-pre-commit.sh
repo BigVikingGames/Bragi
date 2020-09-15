@@ -51,13 +51,13 @@ lint yml 'yamllint -c .github/linters/.yaml-lint.yml'
 # restore both the working tree and index
 git reset > /dev/null;
 git checkout .;
-working_tree_stash_num=$(git stash list | grep "working_tree" | sed 's/stash@\{(.*)\}.*/\1/')
+working_tree_stash_num=$(git stash list | grep "working_tree" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
     git checkout stash@{$working_tree_stash_num} .;
     git stash drop "working_tree" > /dev/null;
 fi;
 git reset > /dev/null;
-index_stash_num=$(git stash list | grep "index" | sed 's/stash@\{(.*)\}.*/\1/')
+index_stash_num=$(git stash list | grep "index" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
     git reset stash@{$index_stash_num} > /dev/null; 
     git stash drop "index" > /dev/null;
