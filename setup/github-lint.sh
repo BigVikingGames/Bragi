@@ -10,7 +10,6 @@ cd ../../..;
 # Ensure the github action workflow file is up to date
 mkdir -p .github/workflows
 cp .github/linters/linter-workflow.yml .github/workflows/linter-workflow.yml
-#git add .github/linters/linter-workflow.yml
 
 # Setup the post merge hooks to automatically update
 rm .git/modules/.github/linters/hooks/post-merge;
