@@ -2,9 +2,16 @@
 
 # keep track of both the working tree and index
 diff_files=$(git diff --name-only --ignore-submodules);
+diff_head_files=$(git diff --name-only --ignore-submodules HEAD)
+diff_all=$(git diff --name-only --ignore-submodules=dirty);
+if [[ "$diff_files" != "$diff_all" ]]; then
+    echo "All submodules must be be added to the index before commiting when local linting is enabled."
+    exit 1;
+fi;
 
 git stash push --keep-index -m "working_tree" > /dev/null;
-git stash push --keep-index -m "index" -- $diff_files > /dev/null;
+git stash push --keep-index -m "index" > /dev/null;
+# -- $diff_files $diff_head_files
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
