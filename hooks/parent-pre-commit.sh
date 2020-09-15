@@ -54,15 +54,15 @@ git checkout .;
 working_tree_stash_num=$(git stash list | grep "working_tree" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
     echo "found working tree stash $working_tree_stash_num";
-    git checkout stash@{$working_tree_stash_num} .;
-    git stash drop "working_tree" > /dev/null;
+    git checkout "stash@{$working_tree_stash_num}" .;
+    git stash drop "stash@{$working_tree_stash_num}" > /dev/null;
 fi;
 git reset > /dev/null;
 index_stash_num=$(git stash list | grep "index" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
     echo "found index stash $index_stash_num";
-    git reset stash@{$index_stash_num} > /dev/null; 
-    git stash drop "index" > /dev/null;
+    git reset "stash@{$index_stash_num}" > /dev/null; 
+    git stash drop "stash@{$index_stash_num}" > /dev/null;
 fi;
 git reset --soft HEAD~1;
 
