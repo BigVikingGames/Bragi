@@ -80,7 +80,7 @@ fi;
 
 # Setup the pre commit hook
 rm .git/hooks/pre-commit 2> /dev/null;
-cp ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
+cp .github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
 
 # Restore working directory
 cd $original_pwd;
