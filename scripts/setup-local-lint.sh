@@ -79,9 +79,8 @@ if ! command_exists yamllint; then
 fi;
 
 # Setup the pre commit hook
-rm .git/hooks/pre-commit;
-ln -s ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
-chmod 777 .git/hooks/pre-commit;
+rm .git/hooks/pre-commit 2> /dev/null;
+cp ../../.github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
 
 # Restore working directory
 cd $original_pwd;
