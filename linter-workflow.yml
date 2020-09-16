@@ -9,9 +9,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Ensure Bragi Submodule uses Https
-        run: |
-          sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
       - name: Pull Bragi
         run: |
           git submodule update --init .github/linters

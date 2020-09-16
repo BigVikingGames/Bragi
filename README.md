@@ -5,7 +5,7 @@ Standardizes all of our projects linting.  This repository must be public for al
 Setup:
 
 1. If linting has not yet been added to your project then add Bragi as a submodule from root of your project under the .github/linters folder:
-`git submodule add git@github.com:BigVikingGames/Bragi.git .github/linters`
+`git submodule add https://github.com/BigVikingGames/Bragi.git .github/linters`  Make sure you use https and not ssh!
 
 2.  Then pull the current version of Bragi:
 `git submodule update --init .github/linters`
