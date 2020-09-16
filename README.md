@@ -13,6 +13,7 @@ Setup:
 3. Then run the script (on either bash(macOS) or wsl[windows subsystem for linux]) located at `.github/linters/scripts/setup-all.sh` and commit the generated linter-workflow.yml file if it was added or changed with something like `git add .github`.  This will set up two automatic things:
     a. A github action to run the linter on any changed files in all pull requests.
     b. A set of hooks to automatically update the linter setup whenever your Bragi submodule changes.
+    If you have a root node module this will also update the package.json and package-lock.json which you can also commit.  If not then you can add node_modules, package.json and package-lock.json to your root .gitignore file.
 
 4. Optionally run the script located at `.github/linters/scripts/setup-local-lint.sh` to steup pre-commit linting.  This will automatically:
     a. Install any necessary linters to your system 

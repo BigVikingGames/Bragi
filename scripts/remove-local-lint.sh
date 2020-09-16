@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Updating github linting.";
+echo "Removing local linting.";
 
 # Move to the root of Bragi
 original_pwd=$(pwd);
