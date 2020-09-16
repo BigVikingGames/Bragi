@@ -9,9 +9,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.SUBMODULE_TOKEN }}
-          submodules: true
+      - name: Pull Bragi
+        env:
+          BRAGI_READ_KEY: ${{ secrets.BRAGI_READ_KEY }}
+        run: |
+          mkdir $HOME/.ssh && echo "$BRAGI_READ_KEY" > $HOME/.ssh/id_rsa && chmod 600 $HOME/.ssh/id_rsa && git submodule update --init
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
