@@ -1,3 +1,4 @@
 #!/bin/sh
 
-setup/update-all.sh;
+bash -c "setup/update-all.sh";
+exit $?;

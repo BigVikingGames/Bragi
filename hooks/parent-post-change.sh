@@ -4,5 +4,6 @@ if git diff --name-only --ignore-submodules=dirty | grep "\.github/linters"; the
     if [[ "$1" != "$2" ]]; then
         git submodule update .github/linters;
     fi;
-    .github/linters/setup/update-all.sh;
+    bash -c ".github/linters/setup/update-all.sh";
+    exit $?;
 fi;
