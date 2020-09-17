@@ -29,7 +29,7 @@ ensure_global_package_exists () {
 
 # CHECKSTYLE
 if ! command_exists checkstyle; then
-    brew install checkstyle || apt-get -y install checkstyle;
+    brew install checkstyle || apt -y install checkstyle;
 fi;
 
 # PHP CODE SNIFFER
@@ -46,14 +46,12 @@ if ! command_exists phpcbf; then
 fi;
 
 if ! command_exists php; then
-    brew install php || apt-get -y install php;
-    apt-get -y install php-xml;
-    apt-get -y install php-xmlwriter;
+    brew install php || (apt -y install php && apt -y install php-xml && apt -y install php-xmlwriter);
 fi;
 
 # NPM
 if ! command_exists npm; then
-    brew install npm || (apt-get -y install npm && npm install -g npm@latest);
+    brew install npm || (apt -y install npm && npm install -g npm@latest);
 fi;
 
 # ESLINT
@@ -76,7 +74,7 @@ ensure_global_package_exists htmlhint;
 
 # YAML Lint
 if ! command_exists yamllint; then
-    brew install yamllint || apt-get -y install yamllint;
+    brew install yamllint || apt -y install yamllint;
 fi;
 
 # Setup the pre commit hook
