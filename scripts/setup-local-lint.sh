@@ -22,7 +22,7 @@ ensure_package_exists () {
 }
 
 ensure_global_package_exists () {
-    if ! command_exists $1; then
+    if ! command_exists "$1"; then
         npm i -g "$1";
     fi;
 }
