@@ -28,7 +28,7 @@ lint () {
     cwd=$(pwd);
 
     cd $3;
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2;
+    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2 | sed "s@$cwd/@@";
     linter_exit_code=$(($linter_exit_code + $?));
 
     cd $cwd;
