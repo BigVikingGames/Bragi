@@ -5,7 +5,7 @@ Standardizes all of our projects linting.  This repository must be public for al
 Setup:
 
 1. If linting has not yet been added to your project then add Bragi as a submodule from root of your project under the .github/linters folder:
-`git submodule add https://github.com/BigVikingGames/Bragi.git .github/linters`  Make sure you use https and not ssh!
+`git submodule add --force https://github.com/BigVikingGames/Bragi.git .github/linters`  Make sure you use https and not ssh!
 
 2.  Then pull the current version of Bragi:
 `git submodule update --init .github/linters`
@@ -13,7 +13,6 @@ Setup:
 3. Then run the script (on either bash(macOS) or wsl[windows subsystem for linux]) located at `.github/linters/scripts/setup-all.sh` and commit the generated linter-workflow.yml file if it was added or changed with something like `git add .github`.  This will set up two automatic things:
     a. A github action to run the linter on any changed files in all pull requests.
     b. A set of hooks to automatically update the linter setup whenever your Bragi submodule changes.
-    If you have a root node module this will also update the package.json and package-lock.json which you can also commit.  If not then you can add node_modules, package.json and package-lock.json to your root .gitignore file.
 
 4. Optionally run the script located at `.github/linters/scripts/setup-local-lint.sh` to steup pre-commit linting.  This will automatically:
     a. Install any necessary linters to your system 
