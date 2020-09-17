@@ -3,7 +3,7 @@ Bragi:  The god of poetry
 Standardizes all of our projects linting.  This repository must be public for all of our other projects to be able to access it without having to each contain a key for access.
 
 Requirements:
-MacOS or Windows with Windows Subsystem for Linux
+MacOS or Windows with Windows Subsystem for Linux (only tested with ubuntu on wsl 2)
 
 Setup:
 
