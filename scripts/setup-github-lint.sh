@@ -4,8 +4,8 @@ echo "Updating github linting.";
 
 # Move to the root of the project
 original_pwd=$(pwd);
-cd $(dirname $0);
-cd ../../..;
+cd "$(dirname \"$0\")" || exit 1;
+cd ../../.. || exit 1;
 
 # Ensure the github action workflow file is up to date
 mkdir -p .github/workflows;
@@ -30,4 +30,4 @@ cp .github/linters/hooks/parent-post-change.sh .git/hooks/post-checkout;
 chmod 777 .git/hooks/post-checkout;
 
 # Restore working directory
-cd $original_pwd;
+cd "$original_pwd" || exit 1;

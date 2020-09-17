@@ -4,8 +4,8 @@ echo "Updating local linting."
 
 # Move to the root of the project
 original_pwd=$(pwd);
-cd $(dirname $0);
-cd ../../..;
+cd "$(dirname \"$0\")" || exit 1;
+cd ../../.. || exit 1;
 
 command_exists () {
     type "$1" > /dev/null 2> /dev/null; 
@@ -14,7 +14,7 @@ command_exists () {
 ensure_package_exists () {
     mkdir -p ~/bragi_linter_packages;
     (
-        cd ~/bragi_linter_packages;
+        cd ~/bragi_linter_packages || exit 1;
         if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
             npm i --save-dev "$1";
         fi;
@@ -85,4 +85,4 @@ cp .github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit;
 chmod 777 .git/hooks/pre-commit;
 
 # Restore working directory
-cd $original_pwd;
+cd "$original_pwd" || exit 1;
