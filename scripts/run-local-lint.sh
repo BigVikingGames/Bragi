@@ -21,12 +21,13 @@ fi;
 # runs a custom lint function aginst a set of files
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom lint command
+# $3 - working directory wile linting
 linter_exit_code=0;
 lint () {
     cwd=$(pwd);
     (
         cd $3;
-        git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed $"s/^/$cwd/" | $xargs_command $2;
+        git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2;
         linter_exit_code=$(($linter_exit_code + $?));
     )
 }
@@ -34,30 +35,35 @@ lint () {
 # runs a custom linter fix function aginst a set of files
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom linter fix command
+# $3 - working directory wile linting
 fix () {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | $xargs_command $2 > /dev/null 2> /dev/null;
+    cwd=$(pwd);
+    (
+        cd $3;
+        git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2 > /dev/null 2> /dev/null;
+    )
 }
 
 # java lint
-lint java 'checkstyle -c .github/linters/sun_checks.xml';
+lint java 'checkstyle -c .github/linters/sun_checks.xml' .;
 
 # javascript + typescript lint
-lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml' '~/bragi_linter_packages';
+lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml' /etc/bragi_linter_packages;
 
 # php lint
-lint php 'phpcs --standard=.github/linters/phpcs.xml';
+lint php 'phpcs --standard=.github/linters/phpcs.xml' .;
 
 # json lint
-lint json 'jsonlint -q';
+lint json 'jsonlint -q' .;
 
 # css lint
-lint css 'npx stylelint --config .github/linters/.stylelintrc.json' '~/bragi_linter_packages';
+lint css 'npx stylelint --config .github/linters/.stylelintrc.json' /etc/bragi_linter_packages;
 
 # html lint
-lint html 'htmlhint --config .github/linters/.htmlhintrc';
+lint html 'htmlhint --config .github/linters/.htmlhintrc' .;
 
 # ansible lint
-lint yml 'yamllint -c .github/linters/.yaml-lint.yml'
+lint yml 'yamllint -c .github/linters/.yaml-lint.yml' .
 
 # restore both the working tree and index
 git reset > /dev/null;
@@ -78,11 +84,11 @@ git reset --soft HEAD~1;
 # Automatically fix the files in our working tree
 # no automatic java fix
 # javascript + typescript fix
-fix '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml --fix';
+fix '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml --fix' /etc/bragi_linter_packages;
 # php fix
-fix php 'phpcbf --standard=.github/linters/phpcs.xml';
+fix php 'phpcbf --standard=.github/linters/phpcs.xml' .;
 # json fix
-fix json 'npx jsonlint -i';
+fix json 'npx jsonlint -i' .;
 # no automatic css fix
 # no automatic html fix
 # no automatic yml fix
