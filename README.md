@@ -9,7 +9,7 @@ MacOS or Windows with Windows Subsystem for Linux (only tested with ubuntu on ws
 `git submodule add --force https://github.com/BigVikingGames/Bragi.git .github/linters`
 Make sure you use https and not ssh
 
-2.  Then pull the current version of Bragi
+2. Then pull the current version of Bragi
 `git submodule update --init .github/linters`
 
 3. Then run the script (on either bash(macOS) or wsl[windows subsystem for linux]) located at `.github/linters/scripts/setup-all.sh` and commit the generated linter-workflow.yml file if it was added or changed with something like `git add .github`.  This will set up two automatic things:
