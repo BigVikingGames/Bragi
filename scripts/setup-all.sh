@@ -2,7 +2,7 @@
 
 # Move to the setup folder of Bragi
 original_pwd=$(pwd);
-cd "$(dirname \"$0\")" || exit 1;
+cd "$(dirname "$0")" || exit 1;
 
 ./setup-github-lint.sh
 

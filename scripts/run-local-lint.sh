@@ -13,8 +13,7 @@ git stash push --keep-index -m "index" > /dev/null;
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
-echo check | xargs --no-run-if-empty > /dev/null 2> /dev/null;
-if [ "$?" -eq "0" ]; then
+if echo check | xargs --no-run-if-empty > /dev/null 2> /dev/null; then
     xargs_command="$xargs_command  --no-run-if-empty";
 fi;
 
@@ -27,8 +26,8 @@ lint () {
     cwd=$(pwd);
 
     cd "$3" || exit 1;
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2;
-    linter_exit_code=$(($linter_exit_code + $?));
+    git diff-index --cached HEAD 2>&1 | sed "s/^:.*\t//" | grep "[.]$1$" | uniq | sed "s@^@$cwd/@" | $xargs_command "$2";
+    linter_exit_code=$linter_exit_code + $?;
 
     cd "$cwd" || exit 1;
 }
@@ -41,7 +40,7 @@ fix () {
     cwd=$(pwd);
 
     cd "$3" || exit 1;
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed "s@^@$cwd/@" | $xargs_command $2 > /dev/null 2> /dev/null;
+    git diff-index --cached HEAD 2>&1 | sed "s/^:.*\t//" | grep "[.]$1$" | uniq | sed "s@^@$cwd/@" | $xargs_command "$2" > /dev/null 2> /dev/null;
 
     cd "$cwd" || exit 1;
 }

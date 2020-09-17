@@ -4,7 +4,7 @@ echo "Updating local linting."
 
 # Move to the root of the project
 original_pwd=$(pwd);
-cd "$(dirname \"$0\")" || exit 1;
+cd "$(dirname "$0")" || exit 1;
 cd ../../.. || exit 1;
 
 command_exists () {
