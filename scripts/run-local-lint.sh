@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "home: $(cd && pwd)";
 
 # keep track of both the working tree and index
 diff_files=$(git diff --name-only --ignore-submodules);
