@@ -12,9 +12,9 @@ command_exists () {
 }
 
 ensure_package_exists () {
-    mkdir -p /etc/bragi_linter_packages;
+    mkdir -p ~/bragi_linter_packages;
     (
-        cd /etc/bragi_linter_packages;
+        cd ~/bragi_linter_packages;
         if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
             npm i --save-dev "$1";
         fi;

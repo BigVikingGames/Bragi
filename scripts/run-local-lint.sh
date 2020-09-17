@@ -48,7 +48,7 @@ fix () {
 lint java 'checkstyle -c .github/linters/sun_checks.xml' .;
 
 # javascript + typescript lint
-lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml' /etc/bragi_linter_packages;
+lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml' ~/bragi_linter_packages;
 
 # php lint
 lint php 'phpcs --standard=.github/linters/phpcs.xml' .;
@@ -57,7 +57,7 @@ lint php 'phpcs --standard=.github/linters/phpcs.xml' .;
 lint json 'jsonlint -q' .;
 
 # css lint
-lint css 'npx stylelint --config .github/linters/.stylelintrc.json' /etc/bragi_linter_packages;
+lint css 'npx stylelint --config .github/linters/.stylelintrc.json' ~/bragi_linter_packages;
 
 # html lint
 lint html 'htmlhint --config .github/linters/.htmlhintrc' .;
@@ -84,7 +84,7 @@ git reset --soft HEAD~1;
 # Automatically fix the files in our working tree
 # no automatic java fix
 # javascript + typescript fix
-fix '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml --fix' /etc/bragi_linter_packages;
+fix '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml --fix' ~/bragi_linter_packages;
 # php fix
 fix php 'phpcbf --standard=.github/linters/phpcs.xml' .;
 # json fix
