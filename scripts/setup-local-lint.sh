@@ -12,9 +12,13 @@ command_exists () {
 }
 
 ensure_package_exists () {
-    if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
-        npm i --save-dev "$1";
-    fi;
+    mkdir -p ~/bragi_linter_packages;
+    (
+        cd ~/bragi_linter_packages;
+        if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
+            npm i --save-dev "$1";
+        fi;
+    )
 }
 
 ensure_global_package_exists () {
@@ -56,9 +60,6 @@ fi;
 ensure_package_exists eslint;
 ensure_package_exists eslint-plugin-import;
 ensure_package_exists eslint-plugin-jsx-a11y;
-#ensure_package_exists eslint-plugin-node;
-#ensure_package_exists eslint-plugin-react;
-#ensure_package_exists babel-eslint;
 ensure_package_exists typescript;
 ensure_package_exists @typescript-eslint/parser;
 ensure_package_exists @typescript-eslint/eslint-plugin;

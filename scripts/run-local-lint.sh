@@ -23,8 +23,12 @@ fi;
 # $2 - custom lint command
 linter_exit_code=0;
 lint () {
-    git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | $xargs_command $2;
-    linter_exit_code=$(($linter_exit_code + $?));
+    cwd=$(pwd);
+    (
+        cd $3;
+        git diff-index --cached HEAD 2>&1 | sed $'s/^:.*\t//' | grep [.]$1$ | uniq | sed $"s/^/$cwd/" | $xargs_command $2;
+        linter_exit_code=$(($linter_exit_code + $?));
+    )
 }
 
 # runs a custom linter fix function aginst a set of files
@@ -38,7 +42,7 @@ fix () {
 lint java 'checkstyle -c .github/linters/sun_checks.xml';
 
 # javascript + typescript lint
-lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml';
+lint '(jsx?)|(tsx?)' 'npx eslint -c .github/linters/.eslintrc.yml' '~/bragi_linter_packages';
 
 # php lint
 lint php 'phpcs --standard=.github/linters/phpcs.xml';
@@ -47,7 +51,7 @@ lint php 'phpcs --standard=.github/linters/phpcs.xml';
 lint json 'jsonlint -q';
 
 # css lint
-lint css 'npx stylelint --config .github/linters/.stylelintrc.json';
+lint css 'npx stylelint --config .github/linters/.stylelintrc.json' '~/bragi_linter_packages';
 
 # html lint
 lint html 'htmlhint --config .github/linters/.htmlhintrc';
