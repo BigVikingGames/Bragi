@@ -2,6 +2,9 @@ Bragi:  The god of poetry
 
 Standardizes all of our projects linting.  This repository must be public for all of our other projects to be able to access it without having to each contain a key for access.
 
+Requirements:
+MacOS or Windows with Windows Subsystem for Linux
+
 Setup:
 
 1. If linting has not yet been added to your project then add Bragi as a submodule from root of your project under the .github/linters folder:
