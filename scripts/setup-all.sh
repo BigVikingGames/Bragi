@@ -2,7 +2,7 @@
 
 # Move to the setup folder of Bragi
 original_pwd=$(pwd);
-cd $(dirname $0);
+cd "$(dirname "$0")" || exit 1;
 
 ./setup-github-lint.sh
 
@@ -12,4 +12,4 @@ if test -e ../../../.git/hooks/pre-commit; then
 fi;
 
 # Restore working directory
-cd $original_pwd;
+cd "$original_pwd" || exit 1;

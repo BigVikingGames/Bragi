@@ -1,0 +1,3 @@
+[submodule ".github/linters"]
+	path = .github/linters
+	url = https://github.com/BigVikingGames/Bragi.git
