@@ -9,7 +9,8 @@ parser: "@typescript-eslint/parser"
 plugins: [ '@typescript-eslint', 'eslint-plugin-node' ]
 
 parserOptions:
-  ecmaVersion: 2020
+  emcaVersion: 2020
+  sourceType: module
 
 rules:
   indent: [ "error", "tab" ]
