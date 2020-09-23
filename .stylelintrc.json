@@ -5,6 +5,7 @@
     "number-leading-zero": null,
     "block-no-empty": null,
     "color-hex-case": null,
-    "color-hex-length": null
+    "color-hex-length": null,
+	"declaration-empty-line-before": null
   }
 }
