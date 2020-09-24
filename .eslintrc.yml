@@ -13,4 +13,6 @@ parserOptions:
   sourceType: module
 
 rules:
-  indent: [ "error", "tab" ]
+  # disabled for now, since there's no option for double-indent on continued line
+  # indent: [ "error", "tab" ]
+  indent: off
