@@ -1,5 +1,4 @@
 #!/bin/sh
-git_dir="";
 auto_clone='false';
 verbose='false';
 filter='.*';
@@ -23,7 +22,7 @@ done
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 ORANGE='\033[0;33m'
-YWLLOW='\033[1;33m'
+YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 update_script="../Bragi/scripts/update_inside_parent.sh";
@@ -37,7 +36,7 @@ update () {
     repo_branch="$1";
     bragi_branch="$2";
     all_repos="$3";
-    filtered_repos=$(echo "$3" | xargs -n 1 | grep "$filter");
+    filtered_repos=$(echo "$all_repos" | xargs -n 1 | grep "$filter");
     for repo in $filtered_repos; do
         (
             echo "Updating branch PTR-linter-$repo_branch for $repo.";
@@ -57,8 +56,8 @@ update () {
                     $update_script "$repo_branch" "$bragi_branch" > /dev/null 2> /dev/null;
                 fi;
                 changed=$(git diff "origin/$repo_branch" "origin/PTR-linter-$repo_branch" --name-only 2> /dev/null);
-                unexpected_changed=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)");
-                if [ "$unexpected_changes" == "" ]; then
+                unexpected_changes=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)");
+                if [ "$unexpected_changes" = "" ]; then
                     if [ "$changed" != "" ]; then
                         echo "- Status:$ORANGE Needs PR created and/or merged.$NC https://github.com/BigVikingGames/$repo/compare/PTR-linter-$repo_branch";
                     else

@@ -2,7 +2,7 @@
 default_branch="$1";
 submodule_branch="master";#"$2";
 
-if [ "$default_branch" == "" ]; then
+if [ "$default_branch" = "" ]; then
     echo "Missing argument 1: Default branch name for this repo.";
     exit 1;
 fi;
@@ -28,7 +28,7 @@ git reset > /dev/null;
 git checkout .;
 git clean -f -d;
 old_branch=$(git branch --show-current);
-git checkout $default_branch;
+git checkout "$default_branch";
 
 # create or update the branch with any new Bragi updates
 git fetch;
@@ -38,7 +38,7 @@ git checkout "$linter_branch" --;
 git checkout -b "$linter_branch";
 git checkout "$linter_branch" --;
 check_branch=$(git branch --show-current);
-if [ "$check_branch" == "$linter_branch" ]; then
+if [ "$check_branch" = "$linter_branch" ]; then
     untracked_files=$(git ls-files --others --exclude-standard | grep .github/linters);
     if [ "$untracked_files" != "" ]; then
         # need to manually remove this since the bragi submodule cannot be stashed which may leads to conflicts later when merging in master.
