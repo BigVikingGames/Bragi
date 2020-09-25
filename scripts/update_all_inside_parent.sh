@@ -54,7 +54,7 @@ update () {
                 unexpected_changed=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)");
                 if [ "$unexpected_changes" == "" ]; then
                     if [ "$changed" != "" ]; then
-                        echo "- Status:$ORANGE Needs PR creates and/or merged.$NC";
+                        echo "- Status:$ORANGE Needs PR created and/or merged.$NC";
                     else
                         echo "- Status:$GREEN Already up to date.$NC";
                     fi;
@@ -68,9 +68,15 @@ update () {
 }
 
 #update parent_base_branch bragi_branch
-update master master "BAM
-BAM-Unity";
-#    gjoll-elli gjoll-relay-server gjoll-app-stream Tarnhelm swftool bvg-unity-commons norns-ptr environment-config-ptr
-#    Bragi Nidavellir tools-analytics PTR-Tools-Server BAM BAM-Unity WorldsElectron VirtualVikoins
-#";
-#YoWorld Fish-World Fish-World-Tools Kella Yggdrasil
+update master master "
+    gjoll-elli gjoll-relay-server gjoll-app-stream
+    Tarnhelm swftool bvg-unity-commons BAM BAM-Unity hermod
+    Bragi Nidavellir tools-analytics PTR-Tools-Server WorldsElectron VirtualVikoins Task-Scheduler
+    devops Jenkins embla norns-ptr environment-config-ptr
+    Flamingo pryor-prototype
+    Fish-World Fish-World-Tools norns-fw environment-config-fishworld
+    yoworld-cli YoWoMo YoWorld-Forums norns-yw environment-config-yoworld
+    Norns tyr Kella bvg-commons Yggdrasil Jormungand
+";
+update unstable master "YoWorld";
+update "norns_2.0" master "Norns";
