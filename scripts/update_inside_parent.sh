@@ -52,12 +52,11 @@ if [ "$check_branch" == "$linter_branch" ]; then
         git submodule add --force https://github.com/BigVikingGames/Bragi.git .github/linters;
         git submodule update --init .github/linters;
         (
-            cd .github/linters;
+            cd .github/linters || exit 1;
             git fetch;
             git checkout "$submodule_branch";
             git config pull.rebase false;
             git pull;
-            cd ../..;
         )
         .github/linters/scripts/setup-all.sh;
         .github/linters/scripts/setup-local-lint.sh;
@@ -70,7 +69,7 @@ fi;
 # restore your old original branch, index and working tree
 git reset > /dev/null;
 git checkout .;
-git checkout $old_branch;
+git checkout "$old_branch";
 working_tree_stash_num=$(git stash list | grep "working_tree_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
     git checkout "stash@{$working_tree_stash_num}" .;
