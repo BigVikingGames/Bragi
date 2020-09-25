@@ -13,12 +13,12 @@ print_usage() {
 while getopts 'cvf:' flag; do
     case "${flag}" in
         c) auto_clone='true' ;;
+        v) verbose='true' ;;
         f) filter="${OPTARG}" ;;
         *) print_usage
             exit 1 ;;
     esac
 done
-
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -49,7 +49,11 @@ update () {
             fi;
 
             if cd "$repo" > /dev/null 2> /dev/null; then
-                $update_script "$repo_branch" "$bragi_branch" > /dev/null 2> /dev/null;
+                if "$verbose"; then
+                    $update_script "$repo_branch" "$bragi_branch";
+                else
+                    $update_script "$repo_branch" "$bragi_branch" > /dev/null 2> /dev/null;
+                fi;
                 changed=$(git diff "origin/$repo_branch" "origin/PTR-linter-$repo_branch" --name-only 2> /dev/null);
                 unexpected_changed=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)");
                 if [ "$unexpected_changes" == "" ]; then

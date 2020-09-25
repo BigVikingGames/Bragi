@@ -39,9 +39,9 @@
     git checkout -b "$linter_branch";
     git checkout "$linter_branch" --;
     check_branch=$(git branch --show-current);
-    if [ "$untracked_linter" == "$linter_branch" ]; then
+    if [ "$check_branch" == "$linter_branch" ]; then
         untracked_files=$(git ls-files --others --exclude-standard | grep .github/linters);
-        if [ "$untracked_linter" != "" ]; then
+        if [ "$untracked_files" != "" ]; then
             rm -rf .github/linters;
         fi;
         git checkout .;
