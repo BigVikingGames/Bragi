@@ -1,25 +1,23 @@
 #!/bin/sh
 git_dir="";
 auto_clone='false';
+verbose='false';
+filter='.*';
 
 print_usage() {
-    printf "Usage:  -g {git_dir} to specify the path to your parent git folder.
-        -c to specify that missing repos are to be automatically cloned (default: false)";
+    printf "Usage:  -c to specify that missing repos are to be automatically cloned (default: false)
+        -v verbose (default: false)
+        -f {filter_expression} regular expression for which repositories to update (default: .*)";
 }
 
-while getopts 'cg:' flag; do
+while getopts 'cvf:' flag; do
     case "${flag}" in
         c) auto_clone='true' ;;
-        g) git_dir="${OPTARG}" ;;
+        f) filter="${OPTARG}" ;;
         *) print_usage
             exit 1 ;;
     esac
 done
-
-if [ "$git_dir" == "" ]; then
-    print_usage;
-    exit 1;
-fi;
 
 
 RED='\033[0;31m'
@@ -30,13 +28,15 @@ NC='\033[0m' # No Color
 
 update_script="../Bragi/scripts/update_inside_parent.sh";
 
-cd "$git_dir" || exit 1;
+cd "$(dirname "$0")" || exit 1;
+cd ../.. || exit 1;
 
 update () {
     repo_branch="$1";
     bragi_branch="$2";
-    repos="$3";
-    for repo in $repos; do
+    all_repos="$3";
+    filtered_repos=$(echo "$3" | xargs -n 1 | grep "$filter");
+    for repo in $filtered_repos; do
         (
             echo "Updating branch PTR-linter-$repo_branch for $repo.";
             if [ ! -d "$repo" ]; then
@@ -67,7 +67,7 @@ update () {
     done;
 }
 
-#update parent_base_branch bragi_branch
+#update parent_base_branch bragi_branch repo_list
 update master master "
     gjoll-elli gjoll-relay-server gjoll-app-stream
     Tarnhelm swftool bvg-unity-commons BAM BAM-Unity hermod
