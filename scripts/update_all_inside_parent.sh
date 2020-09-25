@@ -28,9 +28,11 @@ NC='\033[0m' # No Color
 
 update_script="../Bragi/scripts/update_inside_parent.sh";
 
+# navigate to your git directory that contains all your git repos
 cd "$(dirname "$0")" || exit 1;
 cd ../.. || exit 1;
 
+# creates branches for a set of repositories that makes changes to update to the specified bragi branch for the specified repo branch
 update () {
     repo_branch="$1";
     bragi_branch="$2";
@@ -58,7 +60,7 @@ update () {
                 unexpected_changed=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)");
                 if [ "$unexpected_changes" == "" ]; then
                     if [ "$changed" != "" ]; then
-                        echo "- Status:$ORANGE Needs PR created and/or merged.$NC";
+                        echo "- Status:$ORANGE Needs PR created and/or merged.$NC https://github.com/BigVikingGames/$repo/compare/PTR-linter-$repo_branch";
                     else
                         echo "- Status:$GREEN Already up to date.$NC";
                     fi;
@@ -80,7 +82,7 @@ update master master "
     Flamingo pryor-prototype
     Fish-World Fish-World-Tools norns-fw environment-config-fishworld
     yoworld-cli YoWoMo YoWorld-Forums norns-yw environment-config-yoworld
-    Norns tyr Kella bvg-commons Yggdrasil Jormungand
+    Norns tyr Kellaa bvg-commons Yggdrasil Jormungand
 ";
 update unstable master "YoWorld";
 update "norns_2.0" master "Norns";

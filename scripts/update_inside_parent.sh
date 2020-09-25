@@ -15,6 +15,7 @@
 
     linter_branch_prefix="PTR-linter-";
 
+    # store old the existing branch, index and working tree
     diff_files=$(git diff --name-only --ignore-submodules);
     diff_all=$(git diff --name-only --ignore-submodules=dirty);
     if [ "$diff_files" != "$diff_all" ]; then
@@ -27,13 +28,12 @@
     git reset > /dev/null;
     git checkout .;
     git clean -f -d;
-
     old_branch=$(git branch --show-current);
     git checkout $default_branch;
-    git config pull.rebase false;
-    git fetch;
-    #git pull;
 
+    # create or update the branch with any new Bragi updates
+    git fetch;
+    git config pull.rebase false;
     linter_branch="$linter_branch_prefix$default_branch";
     git checkout "$linter_branch" --;
     git checkout -b "$linter_branch";
@@ -42,6 +42,7 @@
     if [ "$check_branch" == "$linter_branch" ]; then
         untracked_files=$(git ls-files --others --exclude-standard | grep .github/linters);
         if [ "$untracked_files" != "" ]; then
+            # need to manually remove this since the bragi submodule cannot be stashed which may leads to conflicts later when merging in master.
             rm -rf .github/linters;
         fi;
         git checkout .;
@@ -66,6 +67,8 @@
             git push --set-upstream origin "$linter_branch";
         fi;
     fi;
+
+    # restore your old original branch, index and working tree
     git reset > /dev/null;
     git checkout .;
     git checkout $old_branch;

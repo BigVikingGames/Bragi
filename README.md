@@ -22,5 +22,6 @@ Make sure you use https and not ssh
 
 
 ## Updating Bragi Submodule
-After changing the submodule commit pointer for Bragi then the linter-workflow.yml file may also be automatically updated.  Make sure you commit both the submodule and the workflow file when that happens.
-Alternatively you can run the `update_all_inside_parent.sh` script to automatically create update branches of the bragi submodule for all the projects that this linter has been added to.  This is for projects that are sibling to your checked out Bragi repo).
+Manually: After changing the submodule commit pointer for Bragi then the linter-workflow.yml file may also be automatically updated.  Make sure you commit both the submodule and the workflow file when that happens.
+Automatically: Run the `update_all_inside_parent.sh` script to automatically create update branches of the bragi submodule for all the projects that this linter has been added to.  This will run on supported projects that are sibling to your checked out Bragi repository.
+- Warning: any changes in your working tree or index will be temporarily stashed which means interupting the script may result in a repo being left with your code being left in a stashed state.  Run `git stash list` in the problematic repository to view the stashes if that happens.
