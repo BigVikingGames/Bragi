@@ -8,8 +8,9 @@ if [ "$diff_files" != "$diff_all" ]; then
     exit 1;
 fi;
 
-git stash push --keep-index -m "working_tree" > /dev/null;
-git stash push --keep-index -m "index" > /dev/null;
+now=$(date);
+git stash push --keep-index -m "working_tree_$now" > /dev/null;
+git stash push --keep-index -m "index_$now" > /dev/null;
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs";
@@ -71,18 +72,18 @@ lint yml 'yamllint -c .github/linters/.yaml-lint.yml' .
 # restore both the working tree and index
 git reset > /dev/null;
 git checkout .;
-working_tree_stash_num=$(git stash list | grep "working_tree" | sed 's/stash@{\(.*\)}.*/\1/')
+working_tree_stash_num=$(git stash list | grep "working_tree_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
     git checkout "stash@{$working_tree_stash_num}" .;
     git stash drop "stash@{$working_tree_stash_num}" > /dev/null;
 fi;
 git reset > /dev/null;
-index_stash_num=$(git stash list | grep "index" | sed 's/stash@{\(.*\)}.*/\1/')
+index_stash_num=$(git stash list | grep "index_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
     git reset "stash@{$index_stash_num}" > /dev/null; 
     git stash drop "stash@{$index_stash_num}" > /dev/null;
+    git reset --soft HEAD~1;
 fi;
-git reset --soft HEAD~1;
 
 # Automatically fix the files in our working tree
 # no automatic java fix
