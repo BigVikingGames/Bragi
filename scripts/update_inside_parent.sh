@@ -59,7 +59,6 @@ if [ "$check_branch" = "$linter_branch" ]; then
             git pull;
         )
         .github/linters/scripts/setup-all.sh;
-        .github/linters/scripts/setup-local-lint.sh;
         git add .github/linters .github/workflows/linter-workflow.yml;
         git commit -n -m "update the bragi linter submodule";
         git push --set-upstream origin "$linter_branch";
