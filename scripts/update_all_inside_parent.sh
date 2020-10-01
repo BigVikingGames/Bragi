@@ -79,9 +79,10 @@ update master master "
     Bragi Nidavellir tools-analytics PTR-Tools-Server WorldsElectron VirtualVikoins Task-Scheduler
     devops Jenkins embla norns-ptr environment-config-ptr
     Flamingo pryor-prototype
-    Fish-World Fish-World-Tools norns-fw environment-config-fishworld
+    Fish-World-Tools norns-fw environment-config-fishworld
     yoworld-cli YoWoMo YoWorld-Forums norns-yw environment-config-yoworld
     Norns tyr Kellaa bvg-commons Yggdrasil Jormungand
 ";
+update production master "Fish-World";
 update unstable master "YoWorld";
 update "norns_2.0" master "Norns";
