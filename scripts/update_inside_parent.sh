@@ -1,6 +1,6 @@
 #!/bin/sh
 default_branch="$1";
-submodule_branch="master";#"$2";
+submodule_branch="$2";
 
 if [ "$default_branch" = "" ]; then
 	echo "Missing argument 1: Default branch name for this repo.";
