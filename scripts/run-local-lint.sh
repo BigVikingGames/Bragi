@@ -9,12 +9,12 @@ if [ "$diff_files" != "$diff_all" ]; then
 fi
 
 now=$(date)
-git stash push --keep-index -m "working_tree_$now" > /dev/null
-git stash push --keep-index -m "index_$now" > /dev/null
+git stash push --keep-index -m "working_tree_$now" >/dev/null
+git stash push --keep-index -m "index_$now" >/dev/null
 
 # OSX and GNU xargs behave different by default
 xargs_command="xargs"
-if echo check | xargs --no-run-if-empty > /dev/null 2> /dev/null; then
+if echo check | xargs --no-run-if-empty >/dev/null 2>/dev/null; then
 	xargs_command="$xargs_command  --no-run-if-empty"
 fi
 
@@ -23,7 +23,7 @@ fi
 # $2 - custom lint command
 # $3 - working directory wile linting
 linter_exit_code=0
-lint () {
+lint() {
 	cwd=$(pwd)
 
 	cd "$3" || exit 1
@@ -38,12 +38,12 @@ lint () {
 # $1 - regex for the file extensions used for this linter pass
 # $2 - custom linter fix command
 # $3 - working directory wile linting
-fix () {
+fix() {
 	cwd=$(pwd)
 
 	cd "$3" || exit 1
 	xargs_fix_command="$xargs_command $2"
-	git diff-index --cached HEAD 2>&1 | sed "s/^:.*	//" | grep "[.]$1$" | uniq | sed "s@^@$cwd/@" | $xargs_fix_command > /dev/null 2> /dev/null
+	git diff-index --cached HEAD 2>&1 | sed "s/^:.*	//" | grep "[.]$1$" | uniq | sed "s@^@$cwd/@" | $xargs_fix_command >/dev/null 2>/dev/null
 
 	cd "$cwd" || exit 1
 }
@@ -70,18 +70,18 @@ lint html 'htmlhint --config .github/linters/.htmlhintrc' .
 lint yml 'yamllint -c .github/linters/.yaml-lint.yml' .
 
 # restore both the working tree and index
-git reset > /dev/null
+git reset >/dev/null
 git checkout .
 working_tree_stash_num=$(git stash list | grep "working_tree_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
 	git checkout "stash@{$working_tree_stash_num}" .
-	git stash drop "stash@{$working_tree_stash_num}" > /dev/null
+	git stash drop "stash@{$working_tree_stash_num}" >/dev/null
 fi
-git reset > /dev/null
+git reset >/dev/null
 index_stash_num=$(git stash list | grep "index_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
-	git reset "stash@{$index_stash_num}" > /dev/null; 
-	git stash drop "stash@{$index_stash_num}" > /dev/null
+	git reset "stash@{$index_stash_num}" >/dev/null; 
+	git stash drop "stash@{$index_stash_num}" >/dev/null
 	git reset --soft HEAD~1
 fi
 

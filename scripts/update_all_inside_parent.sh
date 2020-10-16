@@ -10,12 +10,12 @@ print_usage() {
 }
 
 while getopts 'cvf:' flag; do
-	case "${flag}" in
-		c) auto_clone='true' ;
-		v) verbose='true' ;
-		f) filter="${OPTARG}" ;
+	case "$flag" in
+		c) auto_clone='true' ;;
+		v) verbose='true' ;;
+		f) filter="${OPTARG}" ;;
 		*) print_usage
-			exit 1 ;
+			exit 1 ;;
 	esac
 done
 
@@ -32,7 +32,7 @@ cd "$(dirname "$0")" || exit 1
 cd ../.. || exit 1
 
 # creates branches for a set of repositories that makes changes to update to the specified bragi branch for the specified repo branch
-update () {
+update() {
 	repo_branch="$1"
 	bragi_branch="$2"
 	all_repos="$3"
@@ -43,19 +43,19 @@ update () {
 			if [ ! -d "$repo" ]; then
 				if "$auto_clone"; then
 					echo "- Status: Cloning missing repo."
-					git clone "git@github.com:BigVikingGames/$repo.git" > /dev/null
+					git clone "git@github.com:BigVikingGames/$repo.git" >/dev/null
 				else
 					echo "- Status:$YELLOW Missing repo.  Use -c to automatically clone it.$NC"
 				fi
 			fi
 
-			if cd "$repo" > /dev/null 2> /dev/null; then
+			if cd "$repo" >/dev/null 2>/dev/null; then
 				if "$verbose"; then
 					$update_script "$repo_branch" "$bragi_branch"
 				else
-					$update_script "$repo_branch" "$bragi_branch" > /dev/null 2> /dev/null
+					$update_script "$repo_branch" "$bragi_branch" >/dev/null 2>/dev/null
 				fi
-				changed=$(git diff "origin/$repo_branch" "origin/PTR-linter-$repo_branch" --name-only 2> /dev/null)
+				changed=$(git diff "origin/$repo_branch" "origin/PTR-linter-$repo_branch" --name-only 2>/dev/null)
 				unexpected_changes=$(echo "$changed" | grep -vwE "(\.github/linters|\.github/workflows/linter-workflow.yml|\.gitmodules)")
 				if [ "$unexpected_changes" = "" ]; then
 					if [ "$changed" != "" ]; then

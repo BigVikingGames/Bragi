@@ -7,21 +7,21 @@ original_pwd=$(pwd)
 cd "$(dirname "$0")" || exit 1
 cd ../../.. || exit 1
 
-command_exists () {
-	type "$1" > /dev/null 2> /dev/null; 
+command_exists() {
+	type "$1" >/dev/null 2>/dev/null; 
 }
 
-ensure_package_exists () {
+ensure_package_exists() {
 	mkdir -p ~/bragi_linter_packages
 	(
 		cd ~/bragi_linter_packages || exit 1
-		if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
+		if ! npm list --depth 1 "$1" >/dev/null 2>/dev/null; then
 			npm i --save-dev "$1"
 		fi
 	)
 }
 
-ensure_global_package_exists () {
+ensure_global_package_exists() {
 	if ! command_exists "$1"; then
 		npm i -g "$1"
 	fi
@@ -78,7 +78,7 @@ if ! command_exists yamllint; then
 fi
 
 # Setup the pre commit hook
-rm .git/hooks/pre-commit 2> /dev/null
+rm .git/hooks/pre-commit 2>/dev/null
 cp .github/linters/hooks/parent-pre-commit.sh .git/hooks/pre-commit
 chmod 777 .git/hooks/pre-commit
 

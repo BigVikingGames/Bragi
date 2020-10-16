@@ -22,9 +22,9 @@ if [ "$diff_files" != "$diff_all" ]; then
 	exit 1
 fi
 now=$(date)
-git stash push --all --keep-index -m "working_tree_$now" > /dev/null
-git stash push --all --keep-index -m "index_$now" > /dev/null
-git reset > /dev/null
+git stash push --all --keep-index -m "working_tree_$now" >/dev/null
+git stash push --all --keep-index -m "index_$now" >/dev/null
+git reset >/dev/null
 git checkout .
 git clean -f -d
 old_branch=$(git branch --show-current)
@@ -69,18 +69,18 @@ if [ "$check_branch" = "$linter_branch" ]; then
 fi
 
 # restore your old original branch, index and working tree
-git reset > /dev/null
+git reset >/dev/null
 git checkout .
 git checkout "$old_branch"
 working_tree_stash_num=$(git stash list | grep "working_tree_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$working_tree_stash_num" ]; then
 	git checkout "stash@{$working_tree_stash_num}" .
-	git stash drop "stash@{$working_tree_stash_num}" > /dev/null
+	git stash drop "stash@{$working_tree_stash_num}" >/dev/null
 fi
-git reset > /dev/null
+git reset >/dev/null
 index_stash_num=$(git stash list | grep "index_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
-	git reset "stash@{$index_stash_num}" > /dev/null
-	git stash drop "stash@{$index_stash_num}" > /dev/null
+	git reset "stash@{$index_stash_num}" >/dev/null
+	git stash drop "stash@{$index_stash_num}" >/dev/null
 	git reset --soft HEAD~1
 fi
