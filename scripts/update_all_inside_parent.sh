@@ -11,11 +11,13 @@ print_usage() {
 
 while getopts 'cvf:' flag; do
 	case "$flag" in
-		c) auto_clone='true' ;;
-		v) verbose='true' ;;
-		f) filter="${OPTARG}" ;;
-		*) print_usage
-			exit 1 ;;
+	c) auto_clone='true' ;;
+	v) verbose='true' ;;
+	f) filter="${OPTARG}" ;;
+	*)
+		print_usage
+		exit 1
+		;;
 	esac
 done
 

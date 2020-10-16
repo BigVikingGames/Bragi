@@ -8,7 +8,7 @@ cd "$(dirname "$0")" || exit 1
 cd ../../.. || exit 1
 
 command_exists() {
-	type "$1" >/dev/null 2>/dev/null; 
+	type "$1" >/dev/null 2>/dev/null
 }
 
 ensure_package_exists() {

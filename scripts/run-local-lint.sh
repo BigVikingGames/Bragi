@@ -80,7 +80,7 @@ fi
 git reset >/dev/null
 index_stash_num=$(git stash list | grep "index_$now" | sed 's/stash@{\(.*\)}.*/\1/')
 if [ -n "$index_stash_num" ]; then
-	git reset "stash@{$index_stash_num}" >/dev/null; 
+	git reset "stash@{$index_stash_num}" >/dev/null 
 	git stash drop "stash@{$index_stash_num}" >/dev/null
 	git reset --soft HEAD~1
 fi
