@@ -8,50 +8,50 @@ cd "$(dirname "$0")" || exit 1;
 cd ../../.. || exit 1;
 
 command_exists () {
-    type "$1" > /dev/null 2> /dev/null; 
+	type "$1" > /dev/null 2> /dev/null; 
 }
 
 ensure_package_exists () {
-    mkdir -p ~/bragi_linter_packages;
-    (
-        cd ~/bragi_linter_packages || exit 1;
-        if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
-            npm i --save-dev "$1";
-        fi;
-    )
+	mkdir -p ~/bragi_linter_packages;
+	(
+		cd ~/bragi_linter_packages || exit 1;
+		if ! npm list --depth 1 "$1" > /dev/null 2> /dev/null; then
+			npm i --save-dev "$1";
+		fi;
+	)
 }
 
 ensure_global_package_exists () {
-    if ! command_exists "$1"; then
-        npm i -g "$1";
-    fi;
+	if ! command_exists "$1"; then
+		npm i -g "$1";
+	fi;
 }
 
 # CHECKSTYLE
 if ! command_exists checkstyle; then
-    brew install checkstyle || apt -y install checkstyle;
+	brew install checkstyle || apt -y install checkstyle;
 fi;
 
 # PHP CODE SNIFFER
 if ! command_exists phpcs; then
-    curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-    chmod 777 phpcs.phar
-    mv phpcs.phar /usr/local/bin/phpcs
+	curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+	chmod 777 phpcs.phar
+	mv phpcs.phar /usr/local/bin/phpcs
 fi;
 
 if ! command_exists phpcbf; then
-    curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
-    chmod 777 phpcbf.phar
-    mv phpcbf.phar /usr/local/bin/phpcbf
+	curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+	chmod 777 phpcbf.phar
+	mv phpcbf.phar /usr/local/bin/phpcbf
 fi;
 
 if ! command_exists php; then
-    brew install php || (apt -y install php && apt -y install php-xml && apt -y install php-xmlwriter);
+	brew install php || (apt -y install php && apt -y install php-xml && apt -y install php-xmlwriter);
 fi;
 
 # NPM
 if ! command_exists npm; then
-    brew install npm || (apt -y install npm && npm install -g npm@latest);
+	brew install npm || (apt -y install npm && npm install -g npm@latest);
 fi;
 
 # ESLINT
@@ -74,7 +74,7 @@ ensure_global_package_exists htmlhint;
 
 # YAML Lint
 if ! command_exists yamllint; then
-    brew install yamllint || apt -y install yamllint;
+	brew install yamllint || apt -y install yamllint;
 fi;
 
 # Setup the pre commit hook

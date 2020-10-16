@@ -8,7 +8,7 @@ cd "$(dirname "$0")" || exit 1;
 
 # Only update the local linter if the user has it turned on by running local-lint.sh at least once
 if test -e ../../../.git/hooks/pre-commit; then
-    ./setup-local-lint.sh
+	./setup-local-lint.sh
 fi;
 
 # Restore working directory
