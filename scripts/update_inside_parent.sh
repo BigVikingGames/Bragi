@@ -34,6 +34,9 @@ git checkout "$default_branch";
 git fetch;
 git config pull.rebase false;
 linter_branch="$linter_branch_prefix$default_branch";
+if git remote prune --dry-run origin | grep "origin/$linter_branch$"; then
+    git branch -r --delete "origin/$linter_branch";
+fi;
 git checkout "$linter_branch" --;
 git checkout -b "$linter_branch";
 git checkout "$linter_branch" --;
