@@ -61,6 +61,7 @@ ensure_package_exists eslint-plugin-jsx-a11y;
 ensure_package_exists typescript;
 ensure_package_exists @typescript-eslint/parser;
 ensure_package_exists @typescript-eslint/eslint-plugin;
+ensure_package_exists eslint-plugin-react-hooks;
 
 # Style Lint
 ensure_package_exists stylelint;
