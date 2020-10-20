@@ -1,0 +1,11 @@
+{
+  "name": "@bvg/bragi",
+  "version": "0.0.1",
+  "description": "super-linter configuration",
+  "author": "Big Viking Games",
+  "private": true,
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.1.2"
+  }
+}
