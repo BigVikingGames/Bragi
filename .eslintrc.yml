@@ -16,3 +16,4 @@ rules:
   # disabled for now, since there's no option for double-indent on continued line
   # indent: [ "error", "tab" ]
   indent: off
+  eqeqeq: [ "error", "always" ]
