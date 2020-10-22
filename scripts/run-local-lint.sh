@@ -15,7 +15,7 @@ git stash push --keep-index -m "index_$now" >/dev/null
 # OSX and GNU xargs behave different by default
 xargs_command="xargs"
 if echo check | xargs --no-run-if-empty >/dev/null 2>/dev/null; then
-	xargs_command="$xargs_command  --no-run-if-empty"
+	xargs_command="$xargs_command --no-run-if-empty"
 fi
 
 # runs a custom lint function aginst a set of files
