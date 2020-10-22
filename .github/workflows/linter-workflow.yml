@@ -12,6 +12,10 @@ jobs:
       - name: Pull Bragi
         run: |
           git submodule update --init .github/linters
+      - name: Install Bragi node_modules
+        working-directory: .github/linters
+        run: |
+          npm install
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
