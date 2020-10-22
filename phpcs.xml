@@ -16,7 +16,7 @@
 		<!-- tabs -->
 		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
 	</rule>
-	
+
 	<!-- tabs -->
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">

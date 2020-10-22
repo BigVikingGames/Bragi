@@ -13,12 +13,12 @@ Make sure you use https and not ssh
 `git submodule update --init .github/linters`
 
 3. Then run the script (on either bash(macOS) or wsl[windows subsystem for linux]) located at `.github/linters/scripts/setup-all.sh` and commit the generated linter-workflow.yml file if it was added or changed with something like `git add .github`.  This will set up two automatic things:
-    a. A github action to run the linter on any changed files in all pull requests.
-    b. A set of hooks to automatically update the linter setup whenever your Bragi submodule changes.
+	a. A github action to run the linter on any changed files in all pull requests.
+	b. A set of hooks to automatically update the linter setup whenever your Bragi submodule changes.
 
 4. Optionally run the script located at `.github/linters/scripts/setup-local-lint.sh` to steup pre-commit linting.  This will automatically:
-    a. Install any necessary linters to your system.
-    b. A hook to automatically run the linter on any changed files in commits you make.  After installing use the `git commit -n` flag to skip linting.
+	a. Install any necessary linters to your system.
+	b. A hook to automatically run the linter on any changed files in commits you make.  After installing use the `git commit -n` flag to skip linting.
 
 
 ## Updating Bragi Submodule
